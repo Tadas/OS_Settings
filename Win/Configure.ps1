@@ -17,6 +17,18 @@ try {
 
 		Node "localhost" {
 
+			# Opens the last active app instance when clicking on the taskbar (instead of opening previews)
+			Registry TaskbarOpenLastActive {
+				Ensure      = "Present"
+
+				Key         = "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+				ValueName   = "LastActiveClick"
+				ValueData   = "1"
+				ValueType   = "Dword"
+				PsDscRunAsCredential = $CurrentUserCreds
+			}
+
+
 			Registry TaskbarClockSeconds {
 				Ensure      = "Present"
 
@@ -26,6 +38,7 @@ try {
 				ValueType   = "Dword"
 				PsDscRunAsCredential = $CurrentUserCreds
 			}
+
 
 			# Window previews should pop up faster
 			Registry TaskbarLivePreviewDelay {
@@ -38,8 +51,9 @@ try {
 				PsDscRunAsCredential = $CurrentUserCreds
 			}
 
+
 			# Disables slow fades in the taskbar
-			Registry TaskbarLivePreviewDelay {
+			Registry TaskbarAnimations {
 				Ensure      = "Present"
 
 				Key         = "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
