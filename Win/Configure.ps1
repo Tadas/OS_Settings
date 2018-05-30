@@ -62,6 +62,17 @@ try {
 				ValueType   = "Dword"
 				PsDscRunAsCredential = $CurrentUserCreds
 			}
+
+			# Don't compress wallpapers
+			Registry WallpaperCompression {
+				Ensure      = "Present"
+
+				Key         = "HKEY_CURRENT_USER\Control Panel\Desktop"
+				ValueName   = "JPEGImportQuality"
+				ValueData   = "100"
+				ValueType   = "Dword"
+				PsDscRunAsCredential = $CurrentUserCreds
+			}
 		}
 	}
 	MyConfig -OutputPath $MOF_OutputPath -ConfigurationData $ConfigData
